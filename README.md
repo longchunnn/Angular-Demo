@@ -1,27 +1,42 @@
-# Hero
-
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.13.
-
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+src/app/
+├── core/                       # Chứa các tài nguyên Toàn cục (Global) duy nhất
+│   ├── guards/                 # Auth Guard, Role Guard...
+│   ├── interceptors/           # Auth Token Interceptor, Error Interceptor...
+│   ├── services/               # AuthService, LoggerService, ApiService...
+│   ├── models/                 # User model, Common API Response model...
+│   └── core.module.ts          # Module gom nhóm Core (chỉ import ở AppModule)
+│
+├── shared/                     # Chứa các tài nguyên Dùng chung cho nhiều Feature
+│   ├── components/             # Navbar, Footer, Loading Spinner, Custom Button...
+│   ├── directives/             # Custom Directives (ngLazyLoad, Highlight...)
+│   ├── pipes/                  # Custom Pipes (DateFormatPipe, CurrencyPipe...)
+│   └── shared.module.ts        # Export các Component/Pipe/Directive + CommonModule
+│
+├── features/                   # Chứa các Tính năng chính của ứng dụng
+│   ├── auth/                   # Feature Xác thực (Login, Register, Forgot Password)
+│   │   ├── pages/              # Các trang chính của feature này
+│   │   │   ├── login/
+│   │   │   └── register/
+│   │   ├── components/         # Component nhỏ chỉ dùng riêng trong Auth
+│   │   ├── services/           # Service riêng của Auth
+│   │   └── auth-routing.module.ts
+│   │
+│   ├── products/               # Feature Quản lý sản phẩm (Lazy Loaded)
+│   │   ├── pages/
+│   │   │   ├── product-list/
+│   │   │   └── product-detail/
+│   │   ├── components/
+│   │   ├── services/
+│   │   ├── models/
+│   │   ├── products.module.ts
+│   │   └── products-routing.module.ts
+│   │
+│   └── dashboard/              # Feature Trang quản trị
+│
+├── layout/                     # Chứa các khung Giao diện chính (Master Layouts)
+│   ├── main-layout/            # Layout chính (Header + Sidebar + Outlet + Footer)
+│   └── auth-layout/            # Layout cho trang Login/Register (Khung trống đơn giản)
+│
+├── app-routing.module.ts       # Cấu hình Route tổng (Lazy loading các Features)
+├── app.component.ts            # Component gốc
+└── app.module.ts               # Module gốc
