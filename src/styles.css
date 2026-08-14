@@ -1,45 +1,96 @@
-/* You can add global styles to this file, and also import other style files */
-/* Application-wide Styles */
-h1 {
-  color: #369;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 250%;
-}
-h2, h3 {
-  color: #444;
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: lighter;
-}
-body {
-  margin: 2em;
-}
-body, input[type="text"], button {
-  color: #333;
-  font-family: Cambria, Georgia, serif;
-}
-button {
-  background-color: #eee;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  color: black;
-  font-size: 1.2rem;
-  padding: 1rem;
-  margin-right: 1rem;
-  margin-bottom: 1rem;
-  margin-top: 1rem;
-}
-button:hover {
-  background-color: black;
-  color: white;
-}
-button:disabled {
-  background-color: #eee;
-  color: #aaa;
-  cursor: auto;
+
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.min.css";
+@import "primeicons/primeicons.css";
+@import "primeflex/primeflex.css";
+
+:root {
+  --primary-color: #5767f5;
+  --primary-dark: #001489;
+  --secondary-color: #6c72af;
+  --tertiary-color: #881e00;
+  --neutral-custom: #777681;
+  --app-bg: #f3f5fa;
+  --font-family: 'Inter', sans-serif;
 }
 
-/* everywhere else */
-* {
-  font-family: Arial, Helvetica, sans-serif;
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--app-bg);
+  margin: 0;
+  padding: 0;
 }
+
+.sidebar-custom-border { border-color: #e2e8f0 !important; }
+.border-color-custom { border-color: var(--neutral-custom) !important; }
+
+
+.bg-primary-custom { background-color: var(--primary-color) !important; }
+.text-primary-custom { color: var(--primary-color) !important; }
+
+.bg-primary-dark { background-color: var(--primary-dark) !important; }
+.text-primary-dark { color: var(--primary-dark) !important; }
+
+.bg-secondary-custom { background-color: var(--secondary-color) !important; }
+.text-secondary-custom { color: var(--secondary-color) !important; }
+
+.bg-app { background-color: var(--app-bg) !important; }
+
+
+.font-headline { font-family: 'Montserrat', sans-serif !important; }
+.font-body { font-family: 'Inter', sans-serif !important; }
+
+.active-menu-item {
+  background-color: rgba(87, 103, 245, 0.12) !important;
+  color: var(--primary-dark) !important;
+  font-weight: 700 !important;
+  position: relative;
+}
+
+.active-menu-item i,
+.active-menu-item span {
+  color: var(--primary-dark) !important;
+}
+
+.active-menu-item::before {
+  content: '';
+  position: absolute;
+  left: -12px; 
+  top: 4px;
+  bottom: 4px;
+  width: 4px;
+  background-color: var(--primary-dark);
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+/* Button Animations & States */
+.nav-btn, .logout-btn {
+  position: relative;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-btn:active, .logout-btn:active {
+  transform: scale(0.96);
+}
+
+.nav-btn:hover:not(.active-menu-item) {
+  background-color: #f8fafc;
+  color: #1e293b;
+}
+
+.logout-btn,
+.logout-btn i,
+.logout-btn span {
+  color: #ef4444 !important;
+}
+
+.logout-btn:hover {
+  background-color: #fef2f2 !important;
+}
+.toggle-btn{
+  color: var(--primary-color) !important;
+} 

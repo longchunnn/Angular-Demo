@@ -1,0 +1,163 @@
+<div class="min-h-screen w-full flex bg-white font-body">
+  <!-- Cột ảnh minh họa bên trái (Chỉ hiện trên màn hình LG) -->
+  <div class="hidden lg:flex lg:w-6 align-items-center justify-content-center bg-white p-6">
+    <img src="../../../../../assets/english-book-illustration-design_23-2149507594 (1).avif" alt="English Learning Illustration" class="max-w-30rem h-auto object-contain" />
+  </div>
+
+  <!-- Cột Form đăng ký bên phải -->
+  <div class="w-full lg:w-6 flex align-items-center justify-content-center bg-app p-4 lg:p-6">
+    <div class="w-full max-w-30rem bg-app lg:bg-transparent p-5 lg:p-0 border-round-2xl shadow-1 lg:shadow-none">
+      
+      <!-- Logo & Tiêu đề App -->
+      <div class="flex align-items-center gap-3 mb-4">
+        <img src="../../../../../assets/1.png" alt="Future English Logo" class="w-2rem h-2rem object-contain" />
+        <span class="text-2xl font-extrabold text-primary-dark font-headline">Future English</span>
+      </div>
+
+      <h2 class="text-3xl font-bold text-gray-900 mb-2 font-headline">Create an account</h2>
+      <p class="text-secondary-custom mb-5 text-sm">Start your journey to fluency today.</p>
+
+      <!-- Đăng ký Mạng xã hội -->
+      <div class="flex flex-column gap-3 mb-4">
+        <button type="button" (click)="handleGoogleLogin()" [disabled]="loading"
+          class="w-full flex align-items-center justify-content-center gap-3 px-4 py-2 border-1 surface-border border-color-custom border-round-xl bg-white text-gray-700 font-semibold text-sm hover:surface-hover cursor-pointer border-none shadow-1">
+          <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" class="w-1rem h-1rem" />
+          Sign up with Google
+        </button>
+
+        <button type="button" [disabled]="loading"
+          class="w-full flex align-items-center justify-content-center gap-3 px-4 py-2 border-1 surface-border border-color-custom border-round-xl bg-white text-gray-700 font-semibold text-sm hover:surface-hover cursor-pointer border-none shadow-1">
+          <img src="https://www.svgrepo.com/show/475647/facebook-color.svg" alt="Facebook" class="w-1rem h-1rem" />
+          Sign up with Facebook
+        </button>
+      </div>
+
+      <!-- Đường phân cách -->
+      <div class="relative flex align-items-center py-2 mb-3">
+        <div class="flex-grow-1 border-top-1 surface-border"></div>
+        <span class="flex-shrink-0 mx-3 text-secondary-custom text-xs font-bold tracking-wider">OR REGISTER WITH EMAIL</span>
+        <div class="flex-grow-1 border-top-1 surface-border"></div>
+      </div>
+
+      <!-- Form Đăng Ký Email & Mật Khẩu -->
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="flex flex-column gap-3">
+        
+        <!-- Full Name Input -->
+        <div>
+          <label class="block text-sm font-semibold text-secondary-custom mb-1">Full Name</label>
+          <div class="relative flex align-items-center">
+            <!-- Icon User bên trái -->
+            <i class="pi pi-user absolute left-0 ml-3 text-secondary-custom z-1 pointer-events-none"></i>
+            <input 
+              type="text" 
+              pInputText 
+              formControlName="name" 
+              placeholder="John Doe"
+              class="w-full py-2 pl-6 pr-3 border-round-xl border-1 surface-border border-color-custom" />
+          </div>
+          <!-- Báo lỗi Validate Full Name -->
+          <small *ngIf="name?.invalid && (name?.dirty || name?.touched)" class="block p-error mt-1">
+            Full Name is required.
+          </small>
+        </div>
+
+        <!-- Email Input -->
+        <div>
+          <label class="block text-sm font-semibold text-secondary-custom mb-1">Email Address</label>
+          <div class="relative flex align-items-center">
+            <!-- Icon Email bên trái -->
+            <i class="pi pi-envelope absolute left-0 ml-3 text-secondary-custom z-1 pointer-events-none"></i>
+            <input 
+              type="email" 
+              pInputText 
+              formControlName="email" 
+              placeholder="you@example.com"
+              class="w-full py-2 pl-6 pr-3 border-round-xl border-1 surface-border border-color-custom" />
+          </div>
+          <!-- Báo lỗi Validate Email -->
+          <small *ngIf="email?.invalid && (email?.dirty || email?.touched)" class="block p-error mt-1">
+            <span *ngIf="email?.errors?.['required']">Email is required.</span>
+            <span *ngIf="email?.errors?.['email']">Email should be valid.</span>
+          </small>
+        </div>
+
+        <!-- Password Input -->
+        <div>
+          <label class="block text-sm font-semibold text-secondary-custom mb-1">Password</label>
+          <div class="relative flex align-items-center">
+            <!-- Icon Ổ khóa bên trái -->
+            <i class="pi pi-lock absolute left-0 ml-3 text-secondary-custom z-1 pointer-events-none"></i>
+            
+            <!-- Input Password -->
+            <input 
+              [type]="showPassword ? 'text' : 'password'" 
+              pInputText 
+              formControlName="password" 
+              placeholder="••••••••"
+              class="w-full py-2 pl-6 pr-6 border-round-xl border-1 surface-border border-color-custom" />
+              
+            <!-- Icon Con mắt bên phải -->
+            <i 
+              [class]="showPassword ? 'pi pi-eye-slash' : 'pi pi-eye'" 
+              (click)="togglePasswordVisibility()" 
+              class="absolute right-0 mr-3 text-secondary-custom cursor-pointer z-2 hover:text-gray-700">
+            </i>
+          </div>
+
+          <!-- Báo lỗi Validate Password -->
+          <small *ngIf="password?.invalid && (password?.dirty || password?.touched)" class="block p-error mt-1">
+            <span *ngIf="password?.errors?.['required']">Password is required.</span>
+            <span *ngIf="password?.errors?.['minlength']">Must be at least 8 characters.</span>
+          </small>
+          <small *ngIf="password?.valid || (!password?.dirty && !password?.touched)" class="block text-secondary-custom text-xs mt-1">
+            Must be at least 8 characters.
+          </small>
+        </div>
+
+        <!-- Confirm Password Input -->
+        <div>
+          <label class="block text-sm font-semibold text-secondary-custom mb-1">Confirm Password</label>
+          <div class="relative flex align-items-center">
+            <i class="pi pi-lock absolute left-0 ml-3 text-secondary-custom z-1 pointer-events-none"></i>
+            
+            <input 
+              [type]="showConfirmPassword ? 'text' : 'password'" 
+              pInputText 
+              formControlName="confirmPassword" 
+              placeholder="••••••••"
+              class="w-full py-2 pl-6 pr-6 border-round-xl border-1 surface-border border-color-custom" />
+              
+            <i 
+              [class]="showConfirmPassword ? 'pi pi-eye-slash' : 'pi pi-eye'" 
+              (click)="toggleConfirmPasswordVisibility()" 
+              class="absolute right-0 mr-3 text-secondary-custom cursor-pointer z-2 hover:text-gray-700">
+            </i>
+          </div>
+          <!-- Báo lỗi Validate Confirm Password -->
+          <small *ngIf="confirmPassword?.invalid && (confirmPassword?.dirty || confirmPassword?.touched)" class="block p-error mt-1">
+            <span *ngIf="confirmPassword?.errors?.['required']">Please confirm your password.</span>
+            <span *ngIf="confirmPassword?.errors?.['passwordMismatch']">Passwords do not match.</span>
+          </small>
+        </div>
+        <!-- Thông báo lỗi từ Server / Supabase -->
+        <div *ngIf="errorMessage" class="bg-red-50 border-left-4 border-red-500 p-3 mb-4 border-round text-sm text-red-700 font-medium">
+          {{ errorMessage }}
+        </div>
+
+        <!-- Nút Submit -->
+        <button type="submit" [disabled]="loading"
+          class="w-full flex justify-content-center align-items-center gap-2 py-3 px-4 border-round-xl text-sm font-bold text-white bg-primary-dark hover:bg-primary-custom border-none cursor-pointer shadow-2 transition-colors mt-2">
+          <span>{{ loading ? 'Processing...' : 'Sign Up' }}</span>
+          <i *ngIf="!loading" class="pi pi-arrow-right"></i>
+        </button>
+      </form>
+
+      <!-- Link chuyển sang trang Đăng nhập -->
+      <p class="mt-4 text-center text-xs text-gray-600 font-medium">
+        Already have an account?
+        <a routerLink="/auth/login" class="font-bold text-primary-dark no-underline hover:underline ml-1">Log in here</a>
+      </p>
+
+    </div>
+  </div>
+</div>

@@ -40,3 +40,49 @@ src/app/
 ├── app-routing.module.ts       # Cấu hình Route tổng (Lazy loading các Features)
 ├── app.component.ts            # Component gốc
 └── app.module.ts               # Module gốc
+
+
+
+Cấu truc thư mục của feature 
+src/app/features/
+├── dashboard/                     # Feature 1: Dashboard / Trang tổng quan
+│   ├── pages/
+│   │   └── dashboard-overview/    # Hiển thị tiến độ, thống kê học tập
+│   ├── dashboard-routing.module.ts
+│   └── dashboard.module.ts
+│
+├── vocabulary/                    # Feature 2: Từ vựng (Vocab)
+│   ├── pages/
+│   │   ├── vocab-list/            # Trang danh sách các bộ từ vựng / chủ đề
+│   │   └── vocab-detail/          # Trang xem bộ thẻ / học Flashcard cụ thể (Sub-route)
+│   ├── components/                # Component nhỏ (Flashcard, WordCard, ProgressWidget...)
+│   ├── services/                  # VocabService (Gọi API lấy bộ từ)
+│   ├── models/                    # Interfaces: VocabTopic, Flashcard...
+│   ├── vocabulary-routing.module.ts
+│   └── vocabulary.module.ts
+│
+├── grammar/                       # Feature 3: Ngữ pháp
+│   ├── pages/
+│   │   ├── grammar-list/          # Trang danh sách chủ điểm ngữ pháp
+│   │   └── grammar-detail/        # Trang bài học ngữ pháp chi tiết
+│   ├── components/                # Component hiển thị ví dụ, bài tập nhỏ
+│   ├── services/                  # GrammarService
+│   ├── grammar-routing.module.ts
+│   └── grammar.module.ts
+│
+├── dictation/                     # Feature 4: Luyện nghe chép chính tả
+│   ├── pages/
+│   │   ├── dictation-list/        # Trang danh sách bài nghe
+│   │   └── dictation-practice/    # Trang gõ/chép chính tả (Audio player, Input validation)
+│   ├── components/                # AudioPlayer, SubtitleDisplay...
+│   ├── services/                  # DictationService
+│   ├── dictation-routing.module.ts
+│   └── dictation.module.ts
+│
+└── arena/                         # Feature 5: Đấu trường / Thách đấu (Arena)
+    ├── pages/
+    │   ├── arena-lobby/           # Sảnh chờ / Bảng xếp hạng
+    │   └── arena-match/           # Trang thi đấu / làm bài thời gian thực
+    ├── services/                  # ArenaService (Kết nối Socket.io / Supabase Realtime)
+    ├── arena-routing.module.ts
+    └── arena.module.ts

@@ -1,0 +1,13 @@
+<!-- Main Container: Xếp theo hàng ngang (Sidebar bên trái, Khung nội dung bên phải) -->
+<div class="flex h-screen w-full bg-app overflow-hidden">
+  <app-sidebar 
+    [isOpen]="isSidebarOpen" 
+    (toggleSidebar)="isSidebarOpen = !isSidebarOpen">
+  </app-sidebar>
+  <div class="flex-1 flex flex-column h-screen overflow-hidden min-w-0">
+    <app-topbar></app-topbar>
+    <main class="flex-1 overflow-y-auto p-4">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>
