@@ -1,0 +1,109 @@
+
+.dictation-wrapper {
+  max-width: 1200px;
+  font-family: var(--font-family, 'Inter', sans-serif);
+}
+
+.level-badge {
+  background-color: #e0e4fd;
+  color: var(--primary-dark, #001489);
+}
+
+.custom-textarea {
+  border: 1.5px solid var(--surface-border, #e2e8f0);
+  background-color: var(--surface-0, #ffffff);
+  color: var(--text-color, #1e293b);
+  resize: vertical;
+  min-height: 120px;
+  outline: none;
+}
+
+.custom-textarea:focus {
+  border-color: var(--primary-color, #5767f5);
+  box-shadow: 0 0 0 3px rgba(87, 103, 245, 0.15);
+}
+
+.custom-textarea[readonly] {
+  background-color: #f8fafc;
+  cursor: default;
+}
+.hint-box {
+  background-color: #fff5f5;
+  border: 1px  var(--tertiary-color, #881e00);
+}
+
+.hint-label {
+  color: var(--tertiary-color, #881e00);
+}
+
+.letter-spacing-2 {
+  letter-spacing: 3px;
+}
+
+.result-box {
+  background-color: #f0fdf4;
+}
+
+.correct-label {
+  color: #15803d !important;
+}
+.audio-custom {
+  outline: none;
+  height: 40px;
+}
+.exercise-playlist::-webkit-scrollbar {
+  width: 5px;
+}
+
+.exercise-playlist::-webkit-scrollbar-thumb {
+  background-color: #cbd5e1;
+  border-radius: 4px;
+}
+
+.playlist-item {
+  background-color: #f8fafc;
+  border: 1px solid transparent;
+}
+
+.playlist-item .item-index {
+  width: 28px;
+  height: 28px;
+  background-color: #e2e8f0;
+  color: var(--neutral-custom, #777681);
+}
+
+.playlist-item:hover {
+  background-color: #f1f5f9;
+}
+
+.custome-card {
+  background-color: #ffffff;
+}
+.playlist-item.active-exercise {
+  background-color: #eef1fe;
+  border-color: #a5b0fa;
+}
+
+.check-completed-icon {
+  color: #32a95e !important; /* Xanh lá tươi */
+  font-weight: bold;
+}
+
+.playlist-item.active-exercise .item-title {
+  color: var(--primary-dark, #001489);
+  font-weight: 700;
+}
+
+.p-button-primary {
+  background-color: var(--primary-color, #5767f5) !important;
+  border-color: var(--primary-color, #5767f5) !important;
+}
+
+.p-button-primary:hover {
+  background-color: var(--primary-dark, #001489) !important;
+  border-color: var(--primary-dark, #001489) !important;
+}
+
+.p-button-secondary {
+  color: var(--neutral-custom, #777681) !important;
+}

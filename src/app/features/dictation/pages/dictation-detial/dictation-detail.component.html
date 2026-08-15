@@ -1,0 +1,198 @@
+<div class="dictation-wrapper p-3 md:p-5 mx-auto">
+  <div class="flex align-items-center justify-content-between mb-4">
+    <button
+      pButton
+      type="button"
+      icon="pi pi-arrow-left"
+      label="Back to List"
+      class="p-button-text p-button-secondary p-button-sm font-medium hover:surface-hover border-round-xl"
+      (click)="onBack()"
+    ></button>
+  </div>
+  <div class="grid nested-grid">
+    <!-- CỘT TRÁI -->
+    <div class="col-12 lg:col-8">
+      <div
+        class="custome-card p-4 sm:p-5 border-round-2xl shadow-1 flex flex-column gap-4"
+      >
+        <div class="flex align-items-center justify-content-between">
+          <h1 class="text-xl sm:text-2xl font-bold text-800 m-0">
+            {{ exercise?.title }}
+          </h1>
+          <span class="text-xs text-400 font-medium"
+            >Ctrl to toggle / Enter to submit</span
+          >
+        </div>
+
+        <div
+          class="audio-box p-3 border-round-xl surface-50 border-1 border-100 flex align-items-center"
+        >
+          <audio
+            #audioPlayer
+            controls
+            [src]="exercise?.audioUrl"
+            class="w-full audio-custom"
+          >
+            Your browser does not support the audio element.
+          </audio>
+        </div>
+
+        <div class="flex flex-column gap-2">
+          <textarea
+            #userInput
+            rows="4"
+            class="custom-textarea w-full p-3 border-round-xl text-base line-height-3 transition-colors transition-duration-150"
+            placeholder="Listen carefully and type what you hear..."
+            (input)="onInputChange()"
+            [(ngModel)]="inputText"
+            (keydown)="handleTextareaKeyDown($event)"
+            [readonly]="isRevealed"
+            spellcheck="false"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+          ></textarea>
+        </div>
+
+        <div
+          *ngIf="hintData && !isRevealed"
+          class="hint-box p-3 border-round-xl flex flex-column gap-2"
+        >
+          <div
+            class="hint-label flex align-items-center gap-2 text-xs font-bold uppercase tracking-wider"
+          >
+            <i class="pi pi-exclamation-circle text-xs"></i> Hint
+          </div>
+          <div
+            class="flex flex-wrap gap-2 align-items-center text-sm font-medium"
+          >
+            <span
+              *ngFor="let item of hintData"
+              [ngClass]="{
+                'text-green-600 font-bold':
+                  item.status === 'repaired' || item.status === 'correct',
+                'text-400 font-bold letter-spacing-2': item.status === 'hidden'
+              }"
+            >
+              {{ item.text }}
+            </span>
+          </div>
+        </div>
+
+        <div
+          *ngIf="isRevealed"
+          class="result-box p-4 border-round-xl flex flex-column gap-2"
+        >
+          <div
+            class="correct-label flex align-items-center gap-2 text-sm font-bold"
+          >
+            <i class="pi pi-check-circle"></i> Correct Answer:
+          </div>
+          <p class="m-0 text-base text-900 font-medium line-height-3">
+            {{ exercise?.content }}
+          </p>
+          <p
+            *ngIf="exercise?.translation"
+            class="m-0 text-sm text-600 line-height-2 italic pt-2 border-top-1 surface-border"
+          >
+            {{ exercise?.translation }}
+          </p>
+        </div>
+
+        <div
+          class="flex align-items-center justify-content-end gap-2 pt-2 border-top-1 surface-border"
+        >
+          <ng-container *ngIf="!isRevealed">
+            <button
+              pButton
+              type="button"
+              label="Skip (Esc)"
+              class="p-button-outlined p-button-secondary font-medium px-4 py-2 border-round-xl"
+              (click)="toggleReveal()"
+            ></button>
+            <button
+              pButton
+              type="button"
+              label="Check (Enter)"
+              icon="pi pi-check"
+              class="p-button-primary font-medium px-4 py-2 border-round-xl shadow-1"
+              (click)="onCheck()"
+            ></button>
+          </ng-container>
+
+          <ng-container *ngIf="isRevealed">
+            <button
+              pButton
+              type="button"
+              label="Replay (Ctrl)"
+              class="p-button-outlined p-button-secondary font-medium px-4 py-2 border-round-xl"
+              (click)="toggleReveal()"
+            ></button>
+            <button
+              pButton
+              type="button"
+              label="Next (Enter)"
+              icon="pi pi-arrow-right"
+              iconPos="right"
+              class="p-button-primary font-medium px-4 py-2 border-round-xl shadow-1"
+              (click)="onNext()"
+            ></button>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 lg:col-4">
+      <div
+        class="custome-card p-4 border-round-2xl shadow-1 flex flex-column gap-3"
+      >
+        <div
+          class="flex align-items-center justify-content-between pb-2 border-bottom-1 surface-border"
+        >
+          <span class="font-bold text-700 text-sm uppercase tracking-wide"
+            >Level {{ exercise?.level }}</span
+          >
+          <span class="text-xs text-500 font-medium"
+            >{{ exerciseList.length }} audio</span
+          >
+        </div>
+
+        <div
+          class="exercise-playlist flex flex-column gap-2 overflow-y-auto max-h-30rem pr-1"
+        >
+          <div
+            *ngFor="let item of exerciseList; let i = index"
+            class="playlist-item p-3 border-round-xl flex align-items-center justify-content-between cursor-pointer transition-all transition-duration-150"
+            [ngClass]="{ 'active-exercise': item.id === exercise?.id }"
+            (click)="loadMockExercise(item.id)"
+          >
+            <div class="flex align-items-center gap-3">
+              <div
+                class="item-index flex align-items-center justify-content-center border-round-circle text-xs font-semibold"
+              >
+                {{ i + 1 }}
+              </div>
+              <div class="flex flex-column">
+                <span class="text-sm font-semibold item-title line-clamp-1">{{
+                  item.title
+                }}</span>
+                <span class="text-xs text-400">Level {{ item.level }}</span>
+              </div>
+            </div>
+
+            <div class="flex align-items-center">
+              <i
+                *ngIf="item.id === exercise?.id"
+                class="pi pi-volume-up text-primary text-sm"
+              ></i>
+              <i
+                *ngIf="item.id !== exercise?.id && item.isCompleted"
+                class="pi pi-check check-completed-icon text-xs"
+              ></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

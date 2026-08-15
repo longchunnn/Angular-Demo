@@ -1,8 +1,8 @@
 export interface WeekData {
-  days: (HeatmapData | null)[];
+  days: (Heatmap | null)[];
   monthLabel?: string;
 }
-export interface HeatmapData {
+export interface Heatmap {
   date: string;
   minutes: number;
 }

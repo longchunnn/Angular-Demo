@@ -1,1 +1,58 @@
-<p>dictation works!</p>
+<h1 class="text-secondary-custom">List audio for dictation</h1>
+<p-accordion [activeIndex]="0">
+  <p-accordionTab
+    *ngFor="let lvl of levels; let first = first"
+    [selected]="first"
+  >
+    <!-- Tiêu đề Header cho từng cấp độ -->
+    <ng-template pTemplate="header">
+      <div class="flex align-items-center justify-content-between w-full pr-3">
+        <div class="flex align-items-center gap-2">
+          <span class="font-bold text-base text-800">Level {{ lvl }}</span>
+        </div>
+        <span class="text-500 text-xs font-semibold">
+          {{ getExercisesByLevel(lvl).length }} audio
+        </span>
+      </div>
+    </ng-template>
+
+    <!-- Danh sách bài tập thuộc cấp độ đó -->
+    <div class="flex flex-column gap-2">
+      <div
+        *ngFor="let item of getExercisesByLevel(lvl); let i = index"
+        (click)="onExerciseClick(item)"
+        [ngClass]="{
+          'completed-card': item.isCompleted,
+          'border-gray-300': !item.isCompleted
+        }"
+        class="flex align-items-center justify-content-between p-3 border-round-lg border-1 surface-border hover:surface-100 cursor-pointer transition-colors transition-duration-150"
+      >
+        <div class="flex align-items-center gap-3">
+          <div
+            class="w-2rem h-2rem border-circle surface-200 text-700 flex align-items-center justify-content-center font-bold text-sm"
+          >
+            {{ i + 1 }}
+          </div>
+          <span class="font-semibold text-800 text-sm md:text-base">{{
+            item.title
+          }}</span>
+        </div>
+
+        <div class="flex align-items-center gap-2">
+          <i
+            *ngIf="item.isCompleted"
+            class="pi pi-check-circle text-green-500 text-lg mr-2 text-purple-custom"
+            title="Đã hoàn thành"
+          ></i>
+        </div>
+      </div>
+
+      <div
+        *ngIf="getExercisesByLevel(lvl).length === 0"
+        class="text-500 text-sm py-2 text-center"
+      >
+        Chưa có audio nào cho cấp độ này.
+      </div>
+    </div>
+  </p-accordionTab>
+</p-accordion>

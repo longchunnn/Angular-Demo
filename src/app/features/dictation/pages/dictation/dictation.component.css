@@ -1,0 +1,14 @@
+
+.text-purple-custom {
+  color: #7c3aed !important; 
+}
+
+.completed-card {
+  border-color: #c4b5fd !important; 
+  background-color: #f5f3ff !important; 
+}
+
+.completed-card:hover {
+  background-color: #ede9fe !important;
+  border-color: #a78bfa !important;
+}

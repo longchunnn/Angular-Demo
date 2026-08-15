@@ -1,0 +1,173 @@
+/* src/app/features/dashboard/pages/dashboard/dashboard.component.css */
+/* Custom Tooltip đồng bộ Theme */
+::ng-deep .p-tooltip {
+  max-width: 220px;
+}
+
+::ng-deep .p-tooltip .p-tooltip-text {
+  background-color: #1e293b !important; /* Xanh than đậm cao cấp */
+  color: #ffffff !important;
+  font-size: 0.75rem !important;
+  font-weight: 500 !important;
+  border-radius: 8px !important;
+  padding: 6px 10px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Mũi tên chỉ của tooltip */
+::ng-deep .p-tooltip.p-tooltip-top .p-tooltip-arrow {
+  border-top-color: #1e293b !important;
+}
+.calendar-card {
+  user-select: none;
+}
+
+/* 1. Reset & Khung PrimeNG Calendar */
+.calendar-card ::ng-deep .p-calendar {
+  width: 100%;
+}
+
+.calendar-card ::ng-deep .p-datepicker {
+  border: none;
+  padding: 0;
+  background: transparent;
+}
+
+/* Header (Tháng & Nút bấm < >) */
+.calendar-card ::ng-deep .p-datepicker-header {
+  background: transparent;
+  border-bottom: 1px solid var(--surface-border, #f1f5f9);
+  padding-bottom: 0.75rem;
+}
+
+.calendar-card ::ng-deep .p-datepicker-title {
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--text-color, #334155);
+}
+
+.calendar-card ::ng-deep .p-datepicker-prev,
+.calendar-card ::ng-deep .p-datepicker-next {
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  color: #64748b;
+  transition: background-color 0.15s ease;
+}
+
+.calendar-card ::ng-deep .p-datepicker-prev:hover,
+.calendar-card ::ng-deep .p-datepicker-next:hover {
+  background-color: var(--surface-hover, #f1f5f9);
+  color: #0f172a;
+}
+
+/* Header ngày trong tuần */
+.calendar-card ::ng-deep th {
+  padding: 0.5rem 0;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+/* Cột tuần Wk */
+.calendar-card ::ng-deep .p-datepicker-weeknumber {
+  color: #94a3b8;
+  font-weight: 500;
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.calendar-card ::ng-deep td {
+  padding: 3px 1px !important;
+  text-align: center;
+}
+
+/* Reset thẻ span bọc ngoài mặc định của PrimeNG */
+.calendar-card ::ng-deep .p-datepicker table td > span {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  width: auto !important;
+  height: auto !important;
+  padding: 0 !important;
+  display: block !important;
+}
+
+/* 2. Style ô tròn Heatmap (DÙNG ::ng-deep ĐỂ ĂN VÀO TEMPLATE) */
+.calendar-card ::ng-deep .heat-circle {
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px;
+  min-height: 32px;
+  margin: 0 auto;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.2s ease;
+}
+
+.calendar-card ::ng-deep .heat-circle:hover {
+  transform: scale(1.15);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  z-index: 2;
+}
+
+.calendar-card ::ng-deep .heat-circle.heat-0 {
+  background-color: #e2e8f0 !important; /* Xám rõ ràng, nổi bật trên nền trắng */
+  color: #64748b !important;
+}
+
+/* Level 1: 1 - 20 phút */
+.calendar-card ::ng-deep .heat-circle.heat-1 {
+  background-color: #e0e4fd !important;
+  color: #3b4bc4 !important;
+}
+
+/* Level 2: 21 - 45 phút */
+.calendar-card ::ng-deep .heat-circle.heat-2 {
+  background-color: #a5b0fa !important;
+  color: #1e2b8f !important;
+}
+
+/* Level 3: 46 - 80 phút */
+.calendar-card ::ng-deep .heat-circle.heat-3 {
+  background-color: var(--primary-color, #5767f5) !important;
+  color: #ffffff !important;
+}
+
+/* Level 4: > 80 phút */
+.calendar-card ::ng-deep .heat-circle.heat-4 {
+  background-color: var(--primary-dark, #001489) !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  box-shadow: 0 2px 6px rgba(0, 20, 137, 0.25);
+}
+
+.calendar-card ::ng-deep .heat-circle.future-day {
+  background-color: transparent !important;
+  border: none !important;
+  color: #94a3b8 !important;
+  cursor: default !important;
+}
+
+.calendar-card ::ng-deep .heat-circle.future-day:hover {
+  transform: none !important;
+  box-shadow: none !important;
+}
+/* Ngày chưa đến (Tương lai): Tắt hoàn toàn hover và con trỏ click */
+.calendar-card ::ng-deep .heat-circle.future-day,
+.calendar-card ::ng-deep .p-datepicker-other-month .heat-circle {
+  background-color: transparent !important;
+  border: none !important;
+  color: #94a3b8 !important;
+  cursor: default !important;
+  pointer-events: auto; /* Giữ hiển thị tự nhiên nhưng không có hiệu ứng */
+}
+
+/* Vô hiệu hóa phóng to & đổ bóng khi rê chuột vào */
+.calendar-card ::ng-deep .heat-circle.future-day:hover,
+.calendar-card ::ng-deep .p-datepicker-other-month .heat-circle:hover {
+  transform: none !important;
+  box-shadow: none !important;
+}

@@ -94,3 +94,8 @@ body {
 .toggle-btn{
   color: var(--primary-color) !important;
 } 
+.p-accordion .p-accordion-header .p-accordion-header-link:focus,
+.p-accordion .p-accordion-header .p-accordion-header-link:focus-visible {
+  box-shadow: none !important;
+  outline: none !important;
+}
