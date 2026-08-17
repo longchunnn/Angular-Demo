@@ -1,6 +1,8 @@
+import { AdminGuard } from './core/guards/admin.guard';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './core/guards/auth.guard';
+import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.component';
 import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
 
 
@@ -27,6 +29,36 @@ const routes: Routes = [
       },
       { path: 'dictation',
         loadChildren: () => import('./features/dictation/dictation.module').then(m => m.DictationModule),
+      }
+
+    ]
+
+  },
+  {
+    path:'admin',
+    component: AdminLayoutComponent,
+    canActivate: [AdminGuard],
+    children: [
+      { path: '', redirectTo: 'vocabulary', pathMatch: 'full' },
+      {
+        path:'dictation',
+        loadChildren: () => import('./admin/dictation/dictation.module').then(m => m.AdminDictationModule),
+      },
+      {
+        path:'vocabulary',
+        loadChildren: () => import('./admin/vocabulary/vocabulary.module').then(m => m.AdminVocabularyModule),
+      },  
+      {
+        path:'grammar',
+        loadChildren: () => import('./admin/grammar/grammar.module').then(m => m.AdminGrammarModule),
+      },
+      {
+        path:'flashcard',
+        loadChildren: () => import('./admin/flashcard/flashcard.module').then(m => m.AdminFlashcardModule),
+      },
+      {
+        path:'exercise',
+        loadChildren: () => import('./admin/exercise/exercise.module').then(m => m.AdminExerciseModule),
       }
 
     ]

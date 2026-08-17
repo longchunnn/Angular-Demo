@@ -12,7 +12,7 @@ export class AuthGuard implements CanActivate {
   async canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Promise<boolean | UrlTree> {
-    const isAuthenticated = await this.supabaseService.isauthenticated();
+    const isAuthenticated = await this.supabaseService.isAuthenticated();
     if (!isAuthenticated) {
       return this.router.createUrlTree(['/auth/login']);
     }

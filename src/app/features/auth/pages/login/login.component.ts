@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SupabaseService } from '../../../../shared/services/supabase.service';
-
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html'
@@ -12,14 +12,16 @@ export class LoginComponent implements OnInit {
   showPassword = false;
   loading = false;
   errorMessage = '';
-
+  returnUrl='/';
   constructor(
     private fb: FormBuilder,
     private supabaseService: SupabaseService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+    this.returnUrl= this.route.snapshot.queryParams['returnUrl'] || '/';
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]]
@@ -43,8 +45,17 @@ export class LoginComponent implements OnInit {
 
     if (error) {
       this.errorMessage = 'Email hoặc mật khẩu không chính xác!';
-    } else if (user) {
+    } 
+    else if (user) {
+      if (this.returnUrl && this.returnUrl !== '/') {
+      this.router.navigateByUrl(this.returnUrl);
+      return;
+    }
+    if (user.role?.toLowerCase() === 'admin') {
+      this.router.navigate(['/admin']);
+    } else {
       this.router.navigate(['/dashboard']);
+    }
     }
   }
 
@@ -52,4 +63,4 @@ export class LoginComponent implements OnInit {
     this.loading = true;
     await this.supabaseService.loginWithGoogle();
   }
-}
+}     

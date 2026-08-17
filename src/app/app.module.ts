@@ -12,12 +12,15 @@ import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { TopbarComponent } from './layout/topbar/topbar.component';
 import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
 import { ReactiveFormsModule } from '@angular/forms';
+
+import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.component';
 @NgModule({
   declarations: [
     AppComponent,
     MainLayoutComponent,
     SidebarComponent,
     TopbarComponent,
+    AdminLayoutComponent,
   ],
   imports: [
     ButtonModule,
